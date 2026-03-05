@@ -1,12 +1,12 @@
 {
   "domain": "ourgroceries_kiosk",
   "name": "OurGroceries Kiosk",
-  "version": "0.1.3",
-  "config_flow": true,
-  "requirements": ["ourgroceries>=1.3.0"],
-  "dependencies": ["http"],
   "codeowners": ["@joshdutcher"],
-  "iot_class": "cloud_polling",
+  "config_flow": true,
+  "dependencies": ["http"],
   "documentation": "https://github.com/joshdutcher/ourgroceries-kiosk-card",
-  "issue_tracker": "https://github.com/joshdutcher/ourgroceries-kiosk-card/issues"
+  "iot_class": "cloud_polling",
+  "issue_tracker": "https://github.com/joshdutcher/ourgroceries-kiosk-card/issues",
+  "requirements": ["ourgroceries>=1.3.0"],
+  "version": "0.1.3"
 }
