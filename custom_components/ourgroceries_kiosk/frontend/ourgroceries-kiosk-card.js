@@ -605,7 +605,7 @@ class OurGroceriesKioskCard extends HTMLElement {
     // Crossed-off items
     let crossedHtml = '';
     if (crossedOff.length > 0) {
-      const sorted = [...crossedOff].sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
+      const sorted = [...crossedOff].sort((a, b) => (a.crossed_off_at || 0) - (b.crossed_off_at || 0));
       for (const item of sorted) {
         crossedHtml += `
           <div class="og-crossed-item" data-id="${this._escAttr(item.id)}">
@@ -804,15 +804,18 @@ class OurGroceriesKioskCard extends HTMLElement {
     );
     const seen = new Set();
     const allItems = [];
-    for (const name of this._masterItems) {
+    for (const mi of this._masterItems) {
+      const name = typeof mi === 'string' ? mi : mi.name;
       const key = name.trim().toLowerCase();
       if (key && !seen.has(key)) {
         seen.add(key);
-        allItems.push(name.trim());
+        allItems.push({ name: name.trim(), addedCount: (mi && mi.added_count) || 0 });
       }
     }
+    allItems.sort((a, b) => b.addedCount - a.addedCount);
     let html = '';
-    for (const name of allItems) {
+    for (const entry of allItems) {
+      const name = entry.name;
       const key = name.toLowerCase();
       const lists = this._itemListMap[key] || [];
       let subtitle = '';
@@ -1702,7 +1705,8 @@ class OurGroceriesKioskCard extends HTMLElement {
       if (!item.crossed_off) addEntry(this._parseQuantity(item.name.trim()).baseName);
     }
     // Master items in server frequency order (most commonly added first)
-    for (const name of this._masterItems) {
+    for (const mi of this._masterItems) {
+      const name = typeof mi === 'string' ? mi : mi.name;
       const key = name.trim().toLowerCase();
       addEntry(historyDisplay[key] || this._titleCase(key));
     }

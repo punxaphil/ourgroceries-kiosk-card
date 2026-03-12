@@ -98,7 +98,8 @@ class OurGroceriesAPI:
             result.append({
                 "id": item.get("id", ""),
                 "name": item.get("value", ""),
-                "crossed_off": crossed,
+                "crossed_off": item.get("crossedOff", False),
+                "crossed_off_at": item.get("crossedOffAt", 0),
                 "category_id": item.get("categoryId", ""),
                 "note": item.get("note", ""),
             })
@@ -162,7 +163,7 @@ class OurGroceriesAPI:
                     master_categories[name] = cat_map[cat_id]
 
         master_item_names = [
-            item.get("value", "")
+            {"name": item.get("value", ""), "added_count": item.get("addedCount", 0)}
             for item in master_items
             if item.get("value", "").strip()
         ]
