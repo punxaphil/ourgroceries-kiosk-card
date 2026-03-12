@@ -5,7 +5,7 @@
  * Vanilla HTMLElement / Shadow DOM — no build step.
  */
 
-const OG_CARD_VERSION = '0.1.7';
+const OG_CARD_VERSION = '0.1.8';
 
 /* ------------------------------------------------------------------ */
 /*  Themes                                                             */
@@ -568,9 +568,7 @@ class OurGroceriesKioskCard extends HTMLElement {
         a.name.toLowerCase().localeCompare(b.name.toLowerCase())
       );
 
-      if (categoryNames.length > 1 || cat !== 'Uncategorized') {
-        html += `<div class="og-category-bar">${this._escHtml(cat)}</div>`;
-      }
+      html += `<div class="og-category-bar">${this._escHtml(cat)}</div>`;
 
       for (const item of items) {
         html += `
@@ -1466,7 +1464,7 @@ class OurGroceriesKioskCard extends HTMLElement {
 
     if (showAdmin) {
       // List mode
-      root.querySelectorAll('.og-setting-option').forEach(btn => {
+      root.querySelectorAll('[data-mode]').forEach(btn => {
         btn.addEventListener('click', () => {
           this._config.list_mode = btn.dataset.mode;
           this._saveLocalConfig();
@@ -2358,9 +2356,9 @@ class OurGroceriesKioskCard extends HTMLElement {
         color: #fff; font-size: 11px; font-weight: 600;
         text-shadow: 0 1px 2px rgba(0,0,0,0.4);
       }
-      .og-setting-row { display: flex; gap: 8px; }
+      .og-setting-row { display: flex; flex-wrap: wrap; gap: 8px; }
       .og-setting-option {
-        flex: 1; padding: 12px; border: 2px solid var(--divider-color);
+        flex: 0 0 auto; padding: 10px 20px; border: 2px solid var(--divider-color);
         border-radius: 8px; background: var(--item-bg);
         color: var(--text-primary); font-size: 16px; font-weight: 500;
         cursor: pointer; touch-action: manipulation;
@@ -2368,9 +2366,9 @@ class OurGroceriesKioskCard extends HTMLElement {
       }
       .og-setting-option.active { border-color: var(--accent-color); color: var(--accent-color); font-weight: 700; }
       .og-setting-option:active { opacity: 0.7; }
-      .og-setting-list-options { display: flex; flex-direction: column; gap: 4px; }
+      .og-setting-list-options { display: flex; flex-wrap: wrap; gap: 6px; }
       .og-setting-list-option {
-        padding: 12px 16px; border: 1px solid var(--divider-color);
+        flex: 0 0 auto; padding: 10px 16px; border: 1px solid var(--divider-color);
         border-radius: 8px; background: var(--item-bg);
         color: var(--text-primary); font-size: 16px;
         cursor: pointer; touch-action: manipulation;
@@ -2440,6 +2438,9 @@ class OurGroceriesKioskCard extends HTMLElement {
 
       /* ---- Compact density ---- */
       :host(.og-compact) .og-header { padding-block: 0; min-height: 40px; }
+      :host(.og-compact) .og-header-title { font-size: 18px; }
+      :host(.og-compact) .og-header-icon-btn { width: 30px; height: 30px; min-width: 30px; }
+      :host(.og-compact) .og-header-icon-btn svg { width: 18px; height: 18px; }
       :host(.og-compact) .og-add-item-row { padding: 4px 16px; }
       :host(.og-compact) .og-add-item-row input { height: 32px; font-size: 14px; }
       :host(.og-compact) .og-item { padding-block: 0; min-height: 30px; }
@@ -2449,6 +2450,8 @@ class OurGroceriesKioskCard extends HTMLElement {
       :host(.og-compact) .og-crossed-name { font-size: 14px; }
       :host(.og-compact) .og-category-bar { padding-block: 2px; font-size: 14px; }
       :host(.og-compact) .og-list-row { padding: 10px 20px; font-size: 17px; }
+      :host(.og-compact) .og-setting-option { font-size: 13px; padding: 8px 14px; }
+      :host(.og-compact) .og-setting-list-option { font-size: 13px; padding: 8px 12px; }
     `;
   }
 }
