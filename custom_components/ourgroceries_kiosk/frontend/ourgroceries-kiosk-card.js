@@ -591,7 +591,7 @@ class OurGroceriesKioskCard extends HTMLElement {
     // Crossed-off items
     let crossedHtml = '';
     if (crossedOff.length > 0) {
-      const sorted = [...crossedOff].sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
+      const sorted = [...crossedOff].sort((a, b) => (a.crossed_off_at || 0) - (b.crossed_off_at || 0));
       for (const item of sorted) {
         crossedHtml += `
           <div class="og-crossed-item" data-id="${this._escAttr(item.id)}">
