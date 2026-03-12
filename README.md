@@ -11,10 +11,12 @@ A touch-friendly Home Assistant Lovelace card for managing OurGroceries shopping
 - Category grouping with colored bars and a category picker
 - Quantity controls
 - 13 built-in themes + system auto (light/dark)
-- Autocomplete from your OurGroceries item history
+- Compact density mode for smaller screens or denser layouts
+- Autocomplete sorted by your most-added items (server-tracked usage frequency)
+- Crossed-off items sorted by the order they were checked off
 - First-run setup wizard
-- In-card settings: any user can change the theme; list mode and locked list are admin-only
-- 30-second auto-refresh
+- In-card settings: any user can change theme and density; list mode and locked list are admin-only
+- 30-second auto-refresh with automatic session re-authentication
 
 ## Prerequisites
 
@@ -62,13 +64,14 @@ views:
 | Option | Values | Description |
 |---|---|---|
 | `theme` | `citrus`, `dark`, `light`, `berries`, `chestnut`, `festival`, `grapevine`, `ice`, `miami`, `old_glory`, `peacock`, `tangerine`, `vino`, `system` | Visual theme |
+| `density` | `default`, `compact` | Layout density — `compact` reduces padding and font sizes for smaller screens |
 | `list_mode` | `all`, `single` | Show all lists or lock to one |
 | `locked_list` | list name | Required when `list_mode: single` |
 | `default_list` | list name | Optional — auto-opens this list in `all` mode |
 
 ## Settings
 
-Tap the **gear icon** in the card header. All users can change the theme. List mode, locked list, and default list are only visible to HA admin users.
+Tap the **gear icon** in the card header. All users can change the theme and density. List mode, locked list, and default list are only visible to HA admin users.
 
 ## Kiosk Mode
 
